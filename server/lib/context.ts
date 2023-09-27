@@ -4,5 +4,6 @@ export const createContext = ({
     req,
     res,
 }: trpcExpress.CreateExpressContextOptions) => {
-    return {};
+
+    return { req, res };
 };

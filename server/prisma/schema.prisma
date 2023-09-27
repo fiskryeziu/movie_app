@@ -11,4 +11,28 @@ datasource db {
 }
 
 
+model Movie {
+  id             String      @id @default(uuid()) @map("_id")
+  createdAt      DateTime    @default(now())
+  title          String
+  releaseDate    DateTime
+  genre          String[]
+  actors         String[]
+  duration       Int
+  rating         Float
+  viewCount      Int         @default(0)
+  coverImageUrl  String
+  trailerUrl     String
+  reviews        Review[]
+}
+
+model Review {
+  id          String      @id @default(uuid()) @map("_id")
+  userId      String
+  name        String
+  comment     String
+  timestamp   DateTime    @default(now())
+  movie       Movie       @relation(fields: [movieId], references: [id])
+  movieId     String
+}
 
