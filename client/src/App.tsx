@@ -1,12 +1,20 @@
-import React from "react"
-import { trpc } from "./trpc"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Header from "./components/Header"
+import { ThemeProvider } from "./components/ThemeProvider"
 
 const App = () => {
-  const { data, isLoading } = trpc.user.getUserById.useQuery("0")
-
-  if (isLoading) return <div>Loading ...</div>
-
-  return <div>{data?.name}</div>
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <BrowserRouter>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" />
+          </Routes>
+        </main>
+      </BrowserRouter>
+    </ThemeProvider>
+  )
 }
 
 export default App

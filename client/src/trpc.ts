@@ -1,6 +1,6 @@
 import { createTRPCReact, httpBatchLink } from '@trpc/react-query';
 
-import type { AppRouter } from '../../movie-app-server/server';
+import type { AppRouter } from '../../server/server';
 
 
 export const trpc = createTRPCReact<AppRouter>();
