@@ -8,7 +8,7 @@ const App = () => {
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <BrowserRouter>
         <Header />
-        <main className="flex flex-col">
+        <main className="flex flex-col mx-0 sm:mx-5 md:mx-20 lg:mx-32">
           <Routes>
             <Route path="/" element={<Main />} />
           </Routes>
