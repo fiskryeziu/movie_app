@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Header from "./components/Header"
 import { ThemeProvider } from "./components/ThemeProvider"
+import Main from "./pages/Main"
 
 const App = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <BrowserRouter>
         <Header />
-        <main>
+        <main className="flex flex-col">
           <Routes>
-            <Route path="/" />
+            <Route path="/" element={<Main />} />
           </Routes>
         </main>
       </BrowserRouter>

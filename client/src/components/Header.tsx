@@ -10,7 +10,7 @@ const Header = () => {
   const { setTheme, theme } = useTheme()
   return (
     <div className="flex max-w-screen-2xl justify-between m-auto h-16 p-4 items-center">
-      <div className="flex items-end space-x-4">
+      <div className="flex items-center space-x-4">
         <Sidebar />
         <p className="text-primary text-3xl">Movie.</p>
       </div>
