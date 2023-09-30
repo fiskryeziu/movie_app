@@ -38,7 +38,7 @@ const Carousel = () => {
         // pauseOnMouseEnter: true,
       }}
       modules={[Autoplay]}
-      className="w-full h-full"
+      className="w-full h-full z-0"
     >
       {Array.from({ length: 10 }, (_, x) => x).map((_, idx) => (
         <SwiperSlide key={idx} className="text-4xl text-red-500">
