@@ -1,5 +1,6 @@
 import Carousel from "@/components/Carousel"
 import Latest from "@/components/Latest"
+import MostViewed from "@/components/MostViewed"
 
 const Main = () => {
   return (
@@ -11,6 +12,7 @@ const Main = () => {
         <Carousel />
       </div>
       <Latest />
+      <MostViewed />
     </>
   )
 }
