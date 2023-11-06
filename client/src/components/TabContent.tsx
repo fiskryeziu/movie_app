@@ -4,9 +4,12 @@ import { Star } from "lucide-react"
 
 const TabContent = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg-grid-cols-3">
+    <div className="grid  grid-cols-1 md:grid-cols-2 lg-grid-cols-3">
       {Array.from({ length: 10 }, (_, x) => x).map((_, idx) => (
-        <div key={idx} className="flex gap-4 bg-secondary border-b-2 mb-[2px]">
+        <div
+          key={idx}
+          className="flex gap-4 bg-secondary border-b-2 dark:border-none mb-1 ml-1"
+        >
           <div className="w-20 h-full">
             <img src={img} alt="" className="object-cover w-full h-full" />
           </div>
