@@ -1,14 +1,11 @@
-import React from "react"
+import MovieOverview from "@/components/MovieOverview"
+import MoviePlay from "@/components/MoviePlay"
 
 const Movie = () => {
   return (
-    <div>
-      <iframe
-        src="https://hqq.ac/e/T0lYTWNhcE1sQk53NDlJOGozRGIwZz09"
-        height="540"
-        width="960"
-        allowFullScreen
-      ></iframe>
+    <div className="w-full flex flex-col gap-5">
+      <MovieOverview />
+      <MoviePlay />
     </div>
   )
 }
