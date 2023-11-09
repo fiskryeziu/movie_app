@@ -1,23 +1,39 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Header from "./components/Header"
+import {
+  createBrowserRouter,
+  RouterProvider,
+  ScrollRestoration,
+} from "react-router-dom"
 import { ThemeProvider } from "./components/ThemeProvider"
 import Main from "./pages/Main"
 import Movie from "./pages/Movie"
+import Layout from "./components/Layout"
 
 const App = () => {
+  return <RouterProvider router={router} />
+}
+const Root = () => {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <BrowserRouter>
-        <Header />
-        <main className="flex flex-col mx-0 sm:mx-5 md:mx-20 lg:mx-32">
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/movie/:id" element={<Movie />} />
-          </Routes>
-        </main>
-      </BrowserRouter>
+      <ScrollRestoration />
+      <Layout />
     </ThemeProvider>
   )
 }
+const router = createBrowserRouter([
+  {
+    path: "/",
+    Component: Root,
+    children: [
+      {
+        path: "/",
+        Component: Main,
+      },
+      {
+        path: "/movie/:id",
+        Component: Movie,
+      },
+    ],
+  },
+])
 
 export default App
