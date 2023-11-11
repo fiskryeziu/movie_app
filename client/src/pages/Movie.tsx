@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer"
 import MovieComment from "@/components/MovieComment"
 import MovieOverview from "@/components/MovieOverview"
 import MoviePlay from "@/components/MoviePlay"
@@ -8,6 +9,7 @@ const Movie = () => {
       <MovieOverview />
       <MoviePlay />
       <MovieComment />
+      <Footer />
     </div>
   )
 }
