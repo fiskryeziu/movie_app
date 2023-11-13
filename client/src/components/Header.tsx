@@ -1,6 +1,6 @@
+import { Link } from "react-router-dom"
 import { Moon, Sun } from "lucide-react"
 import { User2 } from "lucide-react"
-import React from "react"
 import { Sidebar } from "./Sidebar"
 import { useTheme } from "./ThemeProvider"
 import { Input } from "./ui/input"
@@ -12,7 +12,9 @@ const Header = () => {
     <div className="flex max-w-screen-2xl justify-between m-auto h-16 p-4 items-center">
       <div className="flex items-center space-x-4">
         <Sidebar />
-        <p className="text-primary text-3xl">Movie.</p>
+        <Link to={"/"} className="text-primary text-3xl">
+          Movie.
+        </Link>
       </div>
       <div className="">
         <Input
