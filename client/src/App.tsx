@@ -10,6 +10,7 @@ import Layout from "./components/Layout"
 import Popular from "./pages/Popular"
 import Rated from "./pages/Rated"
 import Genre from "./pages/Genre"
+import Error from "./pages/Error"
 
 const App = () => {
   return <RouterProvider router={router} />
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/genre/:type",
         Component: Genre,
+      },
+      {
+        path: "/*",
+        Component: Error,
       },
     ],
   },
