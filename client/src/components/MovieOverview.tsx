@@ -3,20 +3,20 @@ import poster from "../assets/movie.jpg"
 
 const MovieOverview = () => {
   return (
-    <div className="w-full flex my-10 flex-col lg:flex-row gap-10">
-      <div className="w-full lg:w-1/4 h-full">
+    <div className="w-full flex my-10 flex-col lg:flex-row justify-between items-center gap-10">
+      <div className="w-full lg:w-1/4 lg:h-auto h-80">
         <img
           src={poster}
           alt=""
-          className="object-cover h-80 sm:h-96  mx-auto lg:mx-0"
+          className="object-cover h-full lg:h-auto mx-auto"
         />
       </div>
-      <div className="flex flex-col w-full lg:w-3/ items-center lg:items-start">
+      <div className="flex flex-col  w-full lg:w-3/4 items-center lg:items-start">
         <p className="text-xl uppercase text-primary">Overview</p>
         <p className="text-2xl uppercase max-w-lg mb-10 text-center lg:text-left">
           Doctor Strange in the Multiverse of Madness (2022)
         </p>
-        <p className="max-w-xl mb-10">
+        <p className="max-w-xl mb-10 lg:text-left text-center">
           Doctor Strange, with the help of mystical allies both old and new,
           traverses the mind-bending and dangerous alternate realities of the
           Multiverse to confront a mysterious new adversary.

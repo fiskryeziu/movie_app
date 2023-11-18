@@ -1,5 +1,4 @@
 import Carousel from "@/components/Carousel"
-import Footer from "@/components/Footer"
 import Latest from "@/components/Latest"
 import MostViewed from "@/components/MostViewed"
 import Upcoming from "@/components/Upcoming"
@@ -16,7 +15,6 @@ const Main = () => {
       <Latest />
       <MostViewed />
       <Upcoming />
-      <Footer />
     </>
   )
 }

@@ -1,12 +1,14 @@
 import React from "react"
 import img from "../assets/movie.jpg"
 import { Star } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const TabContent = () => {
   return (
     <div className="grid  grid-cols-1 md:grid-cols-2 lg-grid-cols-3">
       {Array.from({ length: 10 }, (_, x) => x).map((_, idx) => (
-        <div
+        <Link
+          to={`/movie/${idx}`}
           key={idx}
           className="flex gap-4 bg-secondary border-b-2 dark:border-none mb-1 ml-1"
         >
@@ -22,7 +24,7 @@ const TabContent = () => {
             </div>
             <p>2h 6m</p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   )
