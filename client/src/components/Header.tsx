@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
 import { Moon, Sun } from "lucide-react"
-import { User2 } from "lucide-react"
 import { Sidebar } from "./Sidebar"
 import { useTheme } from "./ThemeProvider"
 import { Input } from "./ui/input"
 import SearchPopOver from "./SearchPopOver"
+import ProfileMenu from "./ProfileMenu"
 
 const Header = () => {
   const { setTheme, theme } = useTheme()
@@ -23,13 +23,13 @@ const Header = () => {
         />
         <SearchPopOver />
       </div>
-      <div className="flex space-x-3">
+      <div className="flex space-x-3 items-center">
         {theme === "dark" ? (
           <Moon onClick={() => setTheme("light")} />
         ) : (
           <Sun onClick={() => setTheme("dark")} />
         )}
-        <User2 />
+        <ProfileMenu />
       </div>
     </div>
   )
