@@ -11,6 +11,10 @@ import Popular from "./pages/Popular"
 import Rated from "./pages/Rated"
 import Genre from "./pages/Genre"
 import Error from "./pages/Error"
+import Profile from "./pages/Profile"
+import UserProfile from "./components/UserProfile"
+import Settings from "./components/Settings"
+import WatchList from "./components/WatchList"
 
 const App = () => {
   return <RouterProvider router={router} />
@@ -47,6 +51,25 @@ const router = createBrowserRouter([
       {
         path: "/genre/:type",
         Component: Genre,
+      },
+      {
+        path: "/profile",
+        Component: Profile,
+
+        children: [
+          {
+            path: "user-profile",
+            Component: UserProfile,
+          },
+          {
+            path: "settings",
+            Component: Settings,
+          },
+          {
+            path: "watch-list",
+            Component: WatchList,
+          },
+        ],
       },
       {
         path: "/*",
