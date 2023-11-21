@@ -21,8 +21,10 @@ const Profile = () => {
               ].join(" ")
             }
           >
-            <User size={16} />
-            <p className="font-semibold cursor-pointer">Profile</p>
+            <User className="w-6 h-6 md:w-4 md:h-4" />
+            <p className="font-semibold cursor-pointer hidden md:block">
+              Profile
+            </p>
           </NavLink>
           <NavLink
             to={"watch-list"}
@@ -33,8 +35,10 @@ const Profile = () => {
               ].join(" ")
             }
           >
-            <History className="" size={16} />
-            <p className="font-semibold cursor-pointer">Watch List</p>
+            <History className="w-6 h-6 md:w-4 md:h-4" />
+            <p className="font-semibold cursor-pointer hidden md:block">
+              Watch List
+            </p>
           </NavLink>
           <NavLink
             to={"settings"}
@@ -45,8 +49,10 @@ const Profile = () => {
               ].join(" ")
             }
           >
-            <Settings size={16} />
-            <p className="font-semibold cursor-pointer">Settings</p>
+            <Settings className="w-6 h-6 md:w-4 md:h-4" />
+            <p className="font-semibold cursor-pointer hidden md:block">
+              Settings
+            </p>
           </NavLink>
         </div>
       </div>
