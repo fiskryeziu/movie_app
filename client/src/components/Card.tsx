@@ -6,14 +6,17 @@ import {
 } from "@/components/ui/hover-card"
 import { Star } from "lucide-react"
 
-const Card = () => {
+type CardContent = {
+  isHidden: boolean
+}
+const Card = ({ isHidden = false }: CardContent) => {
   return (
     <div className="w-full h-auto aspect-[4:3] hover:-translate-y-1 hover:duration-200 duration-75">
       <HoverCard closeDelay={0}>
         <HoverCardTrigger href="/movie/1">
           <img src={img} alt="" className="block w-full h-full object-cover" />
         </HoverCardTrigger>
-        <HoverCardContent>
+        <HoverCardContent hidden={isHidden}>
           <div>
             <div className="mb-2">
               <p className="text-xl line-clamp-2 font-bold">
