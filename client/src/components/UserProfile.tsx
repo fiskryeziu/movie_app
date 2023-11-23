@@ -3,7 +3,7 @@ import { Input } from "./ui/input"
 
 const UserProfile = () => {
   return (
-    <div className="flex flex-col mt-10  w-80 items-center gap-10">
+    <div className="flex flex-col mt-10 w-full  sm:w-80 items-center gap-10">
       <div className="flex">
         <User /> <p className="text-xl">Edit Profile</p>
       </div>
