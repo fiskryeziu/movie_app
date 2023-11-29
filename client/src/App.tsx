@@ -15,6 +15,7 @@ import Profile from "./pages/Profile"
 import UserProfile from "./components/UserProfile"
 import Settings from "./components/Settings"
 import WatchList from "./components/WatchList"
+import Login from "./pages/Login"
 
 const App = () => {
   return <RouterProvider router={router} />
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/genre/:type",
         Component: Genre,
+      },
+      {
+        path: "/login",
+        Component: Login,
       },
       {
         path: "/profile",

@@ -1,38 +1,95 @@
 import { z } from 'zod';
 
-import { router, publicProcedure } from '../lib/trpc';
+import { router, publicProcedure, privateProcedure } from '../lib/trpc';
 
-import { users } from './db';
-import { User } from '../types';
+import { prisma } from '../lib/prismaClient';
+import { TRPCError } from '@trpc/server';
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
+import { AuthenticatedRequest } from '../types';
+
 
 export const userRouter = router({
-    getUsers: publicProcedure.query(() => {
-        return users;
-    }),
-    getUserById: publicProcedure
-        .input((val: unknown) => {
-            if (typeof val === 'string') return val;
-            throw new Error(`Invalid input: ${typeof val}`);
-        })
-        .query((req) => {
-            const { input } = req;
+    login: publicProcedure
+        .input(z.object({ email: z.string().email(), password: z.string() }))
+        .mutation(async ({ ctx, input }) => {
+            const { req } = ctx;
 
-            const user = users.find((user) => user.id === input);
+            const { email, password } = input;
 
-            return user;
-        }),
-    createUser: publicProcedure
-        .input(z.object({ name: z.string() }))
-        .mutation((req) => {
-            const { input } = req;
+            const user = await prisma.user.findUnique({
+                where: { email },
+            });
 
-            const user: User = {
-                id: `${Math.random()}`,
-                name: input.name,
+            if (!user) {
+                throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'User not found' });
+            }
+
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            if (!passwordMatch) {
+                throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'Invalid password' });
+            }
+
+            const token = jwt.sign({ userId: user.id }, 'secret1234', { expiresIn: '1h' });
+
+            (req as AuthenticatedRequest).user = {
+                id: user.id,
+                username: user.username,
             };
 
-            users.push(user);
+            let data = {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                token,
+            }
 
-            return user;
-        }),
+            console.log(data);
+            return {
+                data
+            };
+        })
+    ,
+    register: publicProcedure
+        .input(z.object({ email: z.string().email(), password: z.string(), username: z.string() }))
+        .mutation(async ({ ctx, input }) => {
+            const { req } = ctx;
+
+            const { email, password, username } = input;
+
+            const existingUser = await prisma.user.findUnique({
+                where: { email },
+            });
+
+            if (existingUser) {
+                throw new TRPCError({
+                    code: 'INTERNAL_SERVER_ERROR',
+                    message: 'This email is already registered. Please use a different email.',
+                });
+            }
+
+            const saltRounds = 10;
+            const passwordHash = await bcrypt.hash(password, saltRounds);
+
+            const newUser = await prisma.user.create({
+                data: {
+                    email,
+                    password: passwordHash,
+                    username,
+                },
+            });
+
+
+            (req as AuthenticatedRequest).user = {
+                id: newUser.id,
+                username: newUser.username,
+            };
+
+            return {
+                message: 'Registration successful!',
+
+            };
+        })
+    ,
 });

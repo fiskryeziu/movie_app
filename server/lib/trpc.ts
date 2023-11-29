@@ -2,6 +2,11 @@ import { initTRPC, inferAsyncReturnType, TRPCError } from '@trpc/server';
 
 import { createContext } from './context';
 
+import jwt, { JwtPayload } from 'jsonwebtoken'
+import { AuthenticatedRequest } from '../types';
+import { prisma } from './prismaClient';
+
+
 export type Context = inferAsyncReturnType<typeof createContext>;
 
 const t = initTRPC.context<Context>().create();
@@ -10,23 +15,44 @@ export const middleware = t.middleware;
 export const router = t.router;
 
 
-const isAuthed = t.middleware(({ ctx, next }) => {
+const isAuthed = t.middleware(async ({ ctx, next }) => {
+    const { req } = ctx
+    const token = req.headers.authorization?.split(' ')[1]
 
-    const { req, res } = ctx
-    if (!ctx.req.oidc.isAuthenticated()) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
+    if (!token) throw new TRPCError({ code: 'UNAUTHORIZED' })
 
-    const session = req.oidc.isAuthenticated() ? 'authenticated' : 'notauthenticated'
-    const user = req.oidc.user
+    try {
+        const payload = jwt.verify(token, 'secret1234') as JwtPayload
 
-    return next({
-        ctx:
-        {
-            session,
-            user
+        const user = await prisma.user.findUnique({
+            where: { id: payload.id },
+            select: {
+                id: true,
+                username: true,
+                password: false
+            }
+        });
+
+        if (!user) {
+            throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message: 'user not found' });
         }
-    })
+
+        (req as AuthenticatedRequest).user = user;
+
+        return next({
+            ctx:
+            {
+                payload
+            }
+        })
+    }
+    catch (error) {
+        let message
+        if (error instanceof Error) message = error.message
+        else message = String(error)
+
+        throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR', message });
+    }
 })
 /**
  * Public procedures

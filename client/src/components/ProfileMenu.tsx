@@ -8,10 +8,13 @@ import {
 } from "@/components/ui/menubar"
 
 import { User2 } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const ProfileMenu = () => {
-  const loginHandler = () => {}
+  const navigate = useNavigate()
+  const loginHandler = () => {
+    navigate("/login")
+  }
   return (
     <Menubar className="border-0 m-0 p-0">
       <MenubarMenu>

@@ -1,4 +1,6 @@
-export type User = {
-    id: string,
-    name: string
+export interface AuthenticatedRequest extends Express.Request {
+    user?: {
+        id: string;
+        username: string;
+    };
 }

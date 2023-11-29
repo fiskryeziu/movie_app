@@ -1,25 +1,14 @@
 import cors from 'cors';
 import express from 'express';
 import * as trpcExpress from '@trpc/server/adapters/express';
-
 import { appRouter } from './router/root';
 import { createContext } from './lib/context';
-import { auth } from 'express-openid-connect'
-
-const config = {
-    authRequired: false,
-    auth0Logout: true,
-    secret: 'a long, randomly-generated string stored in env',
-    baseURL: 'http://localhost:5000/',
-    clientID: '12w855W4f9nTZwXF3zM7bUtDR4XRAfFm',
-    issuerBaseURL: 'https://dev-2z3k3lo1bzdmdwz5.us.auth0.com'
-};
+import generateToken from './utils/generateToken';
+import bcrypt from 'bcrypt'
 
 const app = express();
 
 app.use(cors());
-
-app.use(auth(config));
 
 app.use(
     '/trpc',
@@ -28,7 +17,26 @@ app.use(
         createContext,
     })
 );
+app.get('/', (req, res) => {
+    const a = generateToken('9d1fd6e6-9130-4bce-abae-57eec9a1bac4')
+
+    res.send()
+})
+
+const getPass = async () => {
+
+    const saltRounds = 10;
+
+    const password = await bcrypt.hash('1234', saltRounds);
+    console.log(password);
+}
+getPass()
+
 
 app.listen(5000);
 
 export type AppRouter = typeof appRouter;
+
+function password() {
+    throw new Error('Function not implemented.');
+}
