@@ -16,16 +16,19 @@ import UserProfile from "./components/UserProfile"
 import Settings from "./components/Settings"
 import WatchList from "./components/WatchList"
 import Login from "./pages/Login"
+import { AuthProvider } from "./context/AuthProvider"
 
 const App = () => {
   return <RouterProvider router={router} />
 }
 const Root = () => {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <ScrollRestoration />
-      <Layout />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ScrollRestoration />
+        <Layout />
+      </ThemeProvider>
+    </AuthProvider>
   )
 }
 const router = createBrowserRouter([

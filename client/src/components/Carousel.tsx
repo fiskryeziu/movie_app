@@ -31,11 +31,8 @@ const Carousel = () => {
           spaceBetween: 15,
         },
       }}
-      onSlideChange={() => console.log("slide change")}
-      onSwiper={(swiper) => console.log(swiper)}
       autoplay={{
         delay: 2000,
-        // pauseOnMouseEnter: true,
       }}
       modules={[Autoplay]}
       className="w-full h-full z-0"

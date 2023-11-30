@@ -1,3 +1,6 @@
+import { useAuth } from "@/context/AuthProvider"
+import { Link } from "react-router-dom"
+
 import {
   Menubar,
   MenubarContent,
@@ -6,15 +9,11 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar"
-
 import { User2 } from "lucide-react"
-import { Link, useNavigate } from "react-router-dom"
 
 const ProfileMenu = () => {
-  const navigate = useNavigate()
-  const loginHandler = () => {
-    navigate("/login")
-  }
+  const { isAuthed, loginHandler, logoutHandler } = useAuth()
+
   return (
     <Menubar className="border-0 m-0 p-0">
       <MenubarMenu>
@@ -22,13 +21,19 @@ const ProfileMenu = () => {
           <User2 />
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem asChild>
-            <Link to={"/profile"} className="w-full h-full bg-transparent">
-              Profile
-            </Link>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem onClick={loginHandler}>Login</MenubarItem>
+          {isAuthed ? (
+            <>
+              <MenubarItem asChild>
+                <Link to={"/profile"} className="w-full h-full bg-transparent">
+                  Profile
+                </Link>
+              </MenubarItem>
+              <MenubarSeparator />
+              <MenubarItem onClick={logoutHandler}>Logout</MenubarItem>
+            </>
+          ) : (
+            <MenubarItem onClick={loginHandler}>Login</MenubarItem>
+          )}
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
