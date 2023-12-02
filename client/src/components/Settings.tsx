@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/switch"
 import React from "react"
-import { useTheme } from "./ThemeProvider"
+import { useTheme } from "../context/ThemeProvider"
 
 const Settings = () => {
   const { setTheme, theme } = useTheme()

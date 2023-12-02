@@ -1,23 +1,18 @@
-import {
-  useEffect,
-  createContext,
-  ReactNode,
-  useState,
-  useContext,
-} from "react"
+import { useEffect, createContext, ReactNode, useState } from "react"
 import { decodeToken } from "react-jwt"
-import { DecodeProps, UserProps } from "../../../server/types"
+import { DecodeProps, UserProps } from "types"
 import { useNavigate } from "react-router-dom"
 
 type AuthProviderProps = {
   children: ReactNode
 }
-
 type AuthContextValue = {
   isAuthed?: boolean
   userData?: UserProps
   loginHandler: () => void
   logoutHandler: () => void
+  setUserData: (value: UserProps) => void
+  setIsAuthed: (value: boolean) => void
 }
 
 export const AuthContext = createContext<AuthContextValue>({
@@ -27,16 +22,22 @@ export const AuthContext = createContext<AuthContextValue>({
   logoutHandler: (): void => {
     console.log("Function not implemented.")
   },
+
+  setUserData: () => {
+    console.log("Function not implemented.")
+  },
+  setIsAuthed: () => {
+    console.log("Function not implemented.")
+  },
 })
-const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthed, setIsAuthed] = useState(false)
   const [userData, setUserData] = useState<UserProps>({
-    userId: "",
+    id: "",
     username: "",
     email: "",
-    role: "",
+    role: "USER",
   })
   const navigate = useNavigate()
 
@@ -49,7 +50,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
         if (decoded.userId === userInfo.id) {
           setIsAuthed(true)
-          setUserData(userInfo)
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { token, ...userData } = userInfo
+          setUserData(userData)
         }
       }
     }
@@ -65,11 +68,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }
   return (
     <AuthContext.Provider
-      value={{ isAuthed, userData, loginHandler, logoutHandler }}
+      value={{
+        isAuthed,
+        userData,
+        loginHandler,
+        logoutHandler,
+        setUserData,
+        setIsAuthed,
+      }}
     >
       {children}
     </AuthContext.Provider>
   )
 }
-
-export { useAuth }

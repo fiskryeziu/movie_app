@@ -3,7 +3,7 @@ import {
   RouterProvider,
   ScrollRestoration,
 } from "react-router-dom"
-import { ThemeProvider } from "./components/ThemeProvider"
+import { ThemeProvider } from "./context/ThemeProvider"
 import Main from "./pages/Main"
 import Movie from "./pages/Movie"
 import Layout from "./components/Layout"
@@ -17,6 +17,7 @@ import Settings from "./components/Settings"
 import WatchList from "./components/WatchList"
 import Login from "./pages/Login"
 import { AuthProvider } from "./context/AuthProvider"
+import Register from "./pages/Register"
 
 const App = () => {
   return <RouterProvider router={router} />
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         Component: Login,
+      },
+      {
+        path: "/register",
+        Component: Register,
       },
       {
         path: "/profile",

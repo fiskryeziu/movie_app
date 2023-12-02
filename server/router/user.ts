@@ -42,10 +42,10 @@ export const userRouter = router({
                 id: user.id,
                 username: user.username,
                 email: user.email,
+                role: user.role,
                 token,
             }
 
-            console.log(data);
             return {
                 data
             };

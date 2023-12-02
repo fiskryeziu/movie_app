@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Moon, Sun } from "lucide-react"
 import { Sidebar } from "./Sidebar"
-import { useTheme } from "./ThemeProvider"
+import { useTheme } from "../context/ThemeProvider"
 import { Input } from "./ui/input"
 import SearchPopOver from "./SearchPopOver"
 import ProfileMenu from "./ProfileMenu"
