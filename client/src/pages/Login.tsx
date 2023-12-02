@@ -123,7 +123,10 @@ const LoginPage = () => {
                 <FormMessage />
                 <FormDescription>
                   Don't have an account?
-                  <Link to={"/register"} className="pl-2 underline text-white">
+                  <Link
+                    to={"/register"}
+                    className="pl-2 underline text-primary dark:text-white"
+                  >
                     Sign up
                   </Link>
                 </FormDescription>

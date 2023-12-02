@@ -127,7 +127,10 @@ const Register = () => {
                 <FormMessage />
                 <FormDescription>
                   Have an account?
-                  <Link to={"/login"} className="pl-2 underline text-white">
+                  <Link
+                    to={"/login"}
+                    className="pl-2 underline dark:text-white text-primary"
+                  >
                     Log in
                   </Link>
                 </FormDescription>
