@@ -18,6 +18,7 @@ import WatchList from "./components/WatchList"
 import Login from "./pages/Login"
 import { AuthProvider } from "./context/AuthProvider"
 import Register from "./pages/Register"
+import ProtectedRoute from "./lib/ProtectedRoute"
 
 const App = () => {
   return <RouterProvider router={router} />
@@ -67,7 +68,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        Component: Profile,
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
 
         children: [
           {

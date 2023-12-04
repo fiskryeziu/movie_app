@@ -1,7 +1,9 @@
 import { User } from "lucide-react"
 import { Input } from "./ui/input"
+import { useAuth } from "@/hooks/useAuth"
 
 const UserProfile = () => {
+  const { userData } = useAuth()
   return (
     <div className="flex flex-col mt-10 w-full  sm:w-80 items-center gap-10">
       <div className="flex">
@@ -17,7 +19,7 @@ const UserProfile = () => {
           </label>
           <Input
             className="outline outline-1"
-            value="john@gmail.com"
+            value={userData?.email}
             placeholder="Enter email"
             disabled
           />
@@ -29,7 +31,11 @@ const UserProfile = () => {
           >
             Your name
           </label>
-          <Input name="name" value="fis" className="outline outline-1" />
+          <Input
+            name="name"
+            value={userData?.username}
+            className="outline outline-1"
+          />
         </div>
         <div className="flex flex-col gap-2">
           <label
