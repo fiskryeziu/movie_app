@@ -3,10 +3,10 @@ import { Swiper, SwiperSlide } from "swiper/react"
 
 // Import Swiper styles
 import "swiper/css"
-import img from "../assets/movie.jpg"
 import { Autoplay } from "swiper/modules"
+import { Movie } from "types"
 
-const Carousel = () => {
+const Carousel = ({ movies }: { movies: Movie[] }) => {
   return (
     <Swiper
       slidesPerView={3}
@@ -37,11 +37,11 @@ const Carousel = () => {
       modules={[Autoplay]}
       className="w-full h-full z-0"
     >
-      {Array.from({ length: 10 }, (_, x) => x).map((_, idx) => (
-        <SwiperSlide key={idx} className="text-4xl text-red-500">
+      {movies?.map((movie) => (
+        <SwiperSlide key={movie.id} className="text-4xl text-red-500">
           <div className="w-full h-auto aspect-[4:3]">
             <img
-              src={img}
+              src={movie?.coverImageUrl}
               alt=""
               className="block w-full h-full object-cover"
             />

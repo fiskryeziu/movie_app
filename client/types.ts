@@ -10,3 +10,31 @@ export type UserProps = {
     email: string,
     role: 'ADMIN' | 'USER',
 }
+
+export type Movie = {
+    id: string;
+    createdAt: string;
+    title: string;
+    description: string;
+    quality: string;
+    genre: string[];
+    rating: number;
+    releaseDate: string;
+    actors: string[];
+    coverImageUrl: string;
+    movieURL: string;
+    trailerUrl: string;
+    duration: number;
+    viewCount: number;
+};
+
+export type Review = {
+    id: string;
+    userId: string;
+    name: string;
+    comment: string;
+    timestamp: Date;
+    movie: Movie;
+    movieId: string;
+};
+

@@ -14,14 +14,17 @@ model Movie {
   id            String   @id @default(uuid()) @map("_id")
   createdAt     DateTime @default(now())
   title         String
-  releaseDate   DateTime
+  description   String
+  quality       String   @default("HD")
   genre         String[]
-  actors        String[]
-  duration      Int
   rating        Float
-  viewCount     Int      @default(0)
+  releaseDate   DateTime
+  actors        String[]
   coverImageUrl String
+  movieURL      String
   trailerUrl    String
+  duration      Int
+  viewCount     Int      @default(0)
   reviews       Review[]
 }
 

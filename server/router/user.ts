@@ -2,7 +2,6 @@ import { z } from 'zod';
 
 import { router, publicProcedure, privateProcedure } from '../lib/trpc';
 
-import { prisma } from '../lib/prismaClient';
 import { TRPCError } from '@trpc/server';
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
@@ -17,7 +16,7 @@ export const userRouter = router({
 
             const { email, password } = input;
 
-            const user = await prisma.user.findUnique({
+            const user = await ctx.prisma.user.findUnique({
                 where: { email },
             });
 
@@ -58,7 +57,7 @@ export const userRouter = router({
 
             const { email, password, username } = input;
 
-            const existingUser = await prisma.user.findUnique({
+            const existingUser = await ctx.prisma.user.findUnique({
                 where: { email },
             });
 
@@ -72,7 +71,7 @@ export const userRouter = router({
             const saltRounds = 10;
             const passwordHash = await bcrypt.hash(password, saltRounds);
 
-            const newUser = await prisma.user.create({
+            const newUser = await ctx.prisma.user.create({
                 data: {
                     email,
                     password: passwordHash,

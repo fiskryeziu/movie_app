@@ -1,32 +1,36 @@
-import img from "../assets/movie.jpg"
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
 import { Star } from "lucide-react"
+import { Movie } from "types"
 
 type CardContent = {
   isHidden: boolean
+  movie: Movie
 }
-const Card = ({ isHidden = false }: CardContent) => {
+const Card = ({ movie, isHidden = false }: CardContent) => {
   return (
     <div className="w-full h-auto aspect-[4:3] hover:-translate-y-1 hover:duration-200 duration-75">
       <HoverCard closeDelay={0}>
-        <HoverCardTrigger href="/movie/1">
-          <img src={img} alt="" className="block w-full h-full object-cover" />
+        <HoverCardTrigger href={`/movie/${movie.id}`}>
+          <img
+            src={movie.coverImageUrl}
+            alt="movie"
+            className="block w-full h-full object-cover"
+          />
         </HoverCardTrigger>
         <HoverCardContent hidden={isHidden}>
           <div>
             <div className="mb-2">
-              <p className="text-xl line-clamp-2 font-bold">
-                Doctor Strange in the Multiverse of Madness
-              </p>
+              <p className="text-xl line-clamp-2 font-bold">{movie?.title}</p>
               <div className="flex items-center justify-between my-2">
                 <div className="flex items-center gap-2">
-                  <Star color="yellow" size={16} fill="yellow" /> <p>8.4</p>
+                  <Star color="yellow" size={16} fill="yellow" />{" "}
+                  <p>{movie?.rating}</p>
                 </div>
-                <p>2h 6m</p>
+                <p>{movie?.duration}</p>
               </div>
               <p className="line-clamp-3">
                 Doctor Strange teams up with a mysterious teenage girl from his
