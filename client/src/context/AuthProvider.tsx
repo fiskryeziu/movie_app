@@ -32,6 +32,8 @@ export const AuthContext = createContext<AuthContextValue>({
 })
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
+  // TODO: fix auth when user logged in on reload,
+  // user gets redirected to login page
   const [isAuthed, setIsAuthed] = useState(false)
   const [userData, setUserData] = useState<UserProps>({
     id: "",

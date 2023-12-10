@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react"
 import pic from "../assets/mr-robot.jpg"
 import { SendHorizonal } from "lucide-react"
+import { Movie } from "types"
 
-const MovieComment = () => {
+type TMovie = {
+  movie: Movie
+}
+const MovieComment = ({ movie }: TMovie) => {
   const [text, setText] = useState("")
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-  const commentNum: number = 1
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value)
@@ -23,6 +26,7 @@ const MovieComment = () => {
     <div className="flex flex-col gap-5 m-2 sm:m-0">
       <div className="flex gap-5">
         <div className="w-16 h-16">
+          {/* logged in user profile   */}
           <img
             src={pic}
             alt="profile-pic"
@@ -47,7 +51,7 @@ const MovieComment = () => {
         </div>
       </div>
       <div className="h-80 w-full bg-secondary flex flex-col gap-5  overflow-y-auto p-2">
-        {commentNum > 0 ? (
+        {movie.review && movie.review.length > 0 ? (
           <div className="flex gap-3 items-center">
             <div className="w-10 h-10 flex shrink-0 rounded-full overflow-hidden">
               <img

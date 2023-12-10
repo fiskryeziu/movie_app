@@ -1,23 +1,22 @@
+import { Movie } from "types"
 import { Skeleton } from "./ui/skeleton"
-import { useState } from "react"
-
-const MoviePlay = () => {
-  const [loading, setLoading] = useState(true)
-  const handleLoader = () => {
-    setLoading(false)
-  }
+type TMovie = {
+  movie: Movie
+  isLoading: boolean
+}
+const MoviePlay = ({ movie, isLoading }: TMovie) => {
   return (
     <>
       <div className="w-full">
-        {loading && (
+        {isLoading ? (
           <Skeleton className="w-full lg:h-[540px] sm:h-auto md:h-[400px]" />
+        ) : (
+          <iframe
+            src={movie.movieURL}
+            allowFullScreen
+            className="w-full aspect-video lg:h-[540px] sm:h-auto md:h-[400px]"
+          />
         )}
-        <iframe
-          src="https://hqq.ac/e/T0lYTWNhcE1sQk53NDlJOGozRGIwZz09"
-          allowFullScreen
-          className="w-full aspect-video lg:h-[540px] sm:h-auto md:h-[400px]"
-          onLoad={handleLoader}
-        />
       </div>
       <div className="flex gap-5 mb-10">
         <button className="flex text-left rounded-md font-bold bg-secondary p-2 hover:bg-primary hover:duration-150 text-sm sm:text-base">

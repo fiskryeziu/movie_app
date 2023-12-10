@@ -14,7 +14,7 @@ const Card = ({ movie, isHidden = false }: CardContent) => {
   return (
     <div className="w-full h-auto aspect-[4:3] hover:-translate-y-1 hover:duration-200 duration-75">
       <HoverCard closeDelay={0}>
-        <HoverCardTrigger href={`/movie/${movie.id}`}>
+        <HoverCardTrigger href={`/movie/${movie?.id}`}>
           <img
             src={movie.coverImageUrl}
             alt="movie"

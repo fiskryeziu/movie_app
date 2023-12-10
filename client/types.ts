@@ -26,6 +26,7 @@ export type Movie = {
     trailerUrl: string;
     duration: number;
     viewCount: number;
+    review?: string[]
 };
 
 export type Review = {

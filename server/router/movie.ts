@@ -16,7 +16,7 @@ export const movieRouter = router({
     }),
     getMovieById: publicProcedure
         .input(z.object({ id: z.string() }))
-        .mutation(async ({ ctx, input }) => {
+        .query(async ({ ctx, input }) => {
             const movie = await ctx.prisma.movie.findUnique({
                 where:
                 {

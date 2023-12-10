@@ -1,12 +1,15 @@
 import { ChevronRight, Clock, Film, Globe, Star } from "lucide-react"
-import poster from "../assets/movie.jpg"
+import { Movie } from "types"
 
-const MovieOverview = () => {
+type TMovie = {
+  movie: Movie
+}
+const MovieOverview = ({ movie }: TMovie) => {
   return (
     <div className="w-full flex my-10 flex-col lg:flex-row justify-between items-center gap-10">
       <div className="w-full lg:w-1/4 lg:h-auto h-80">
         <img
-          src={poster}
+          src={movie.coverImageUrl}
           alt=""
           className="object-cover h-full lg:h-auto mx-auto"
         />
@@ -14,19 +17,19 @@ const MovieOverview = () => {
       <div className="flex flex-col  w-full lg:w-3/4 items-center lg:items-start">
         <p className="text-xl uppercase text-primary">Overview</p>
         <p className="text-2xl uppercase max-w-lg mb-10 text-center lg:text-left">
-          Doctor Strange in the Multiverse of Madness (2022)
+          {movie.title}
         </p>
         <p className="max-w-xl mb-10 lg:text-left text-center">
-          Doctor Strange, with the help of mystical allies both old and new,
-          traverses the mind-bending and dangerous alternate realities of the
-          Multiverse to confront a mysterious new adversary.
+          {movie.description}
         </p>
         <div className="w-auto lg:w-full flex flex-col gap-5  lg:flex-row ">
           <div className="w-auto lg:w-1/2 flex-col space-y-5">
             <div className="flex gap-2">
               <Film className="text-primary" />
               <span className="flex font-bold"> Genre: </span>
-              <p>Fantasy, Action, Adventure </p>
+              {movie.genre.map((item) => (
+                <p>{item}</p>
+              ))}
             </div>
             <div className="flex gap-2">
               <Star className="text-primary" />
@@ -43,7 +46,9 @@ const MovieOverview = () => {
             <div className="flex gap-2">
               <Clock className="text-primary" />
               <span className="flex font-bold"> Duration: </span>
-              <p>2h 10min </p>
+              <p>
+                {Math.floor(movie.duration / 60)}h {movie.duration & 60}min
+              </p>
             </div>
             <div className="flex gap-2">
               <ChevronRight className="text-primary" />
