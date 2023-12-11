@@ -1,8 +1,10 @@
 import { User } from "lucide-react"
 import { Input } from "./ui/input"
 import { useAuth } from "@/hooks/useAuth"
+import { useForm } from "react-hook-form"
 
 const UserProfile = () => {
+  const { register } = useForm()
   const { userData } = useAuth()
   return (
     <div className="flex flex-col mt-10 w-full  sm:w-80 items-center gap-10">
@@ -18,6 +20,7 @@ const UserProfile = () => {
             Email address
           </label>
           <Input
+            name="email"
             className="outline outline-1"
             value={userData?.email}
             placeholder="Enter email"
@@ -32,8 +35,8 @@ const UserProfile = () => {
             Your name
           </label>
           <Input
-            name="name"
-            value={userData?.username}
+            {...register("name")}
+            defaultValue={userData?.username}
             className="outline outline-1"
           />
         </div>

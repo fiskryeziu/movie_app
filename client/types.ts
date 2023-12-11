@@ -9,6 +9,7 @@ export type UserProps = {
     username: string,
     email: string,
     role: 'ADMIN' | 'USER',
+    token: string
 }
 
 export type Movie = {

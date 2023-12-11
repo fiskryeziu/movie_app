@@ -12,7 +12,7 @@ import {
 import { User2 } from "lucide-react"
 
 const ProfileMenu = () => {
-  const { isAuthed, loginHandler, logoutHandler } = useAuth()
+  const { userData, loginHandler, logoutHandler } = useAuth()
 
   return (
     <Menubar className="border-0 m-0 p-0">
@@ -21,7 +21,7 @@ const ProfileMenu = () => {
           <User2 />
         </MenubarTrigger>
         <MenubarContent>
-          {isAuthed ? (
+          {userData?.token ? (
             <>
               <MenubarItem asChild>
                 <Link to={"/profile"} className="w-full h-full bg-transparent">

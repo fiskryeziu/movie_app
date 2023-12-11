@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { trpc } from "@/trpc"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useAuth } from "@/hooks/useAuth"
 
 const formSchema = z
   .object({
@@ -32,7 +33,14 @@ const formSchema = z
   })
 
 const Register = () => {
+  const { userData } = useAuth()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (userData && userData.token) {
+      navigate("/")
+    }
+  }, [navigate, userData])
 
   const { mutate } = trpc.user.register.useMutation({
     onSuccess: () => {

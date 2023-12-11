@@ -3,13 +3,9 @@ import { ReactNode } from "react"
 import { Navigate } from "react-router-dom"
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
-  const { isAuthed, userData } = useAuth()
+  const { userData } = useAuth()
 
-  return isAuthed && userData?.role === "USER" ? (
-    <>{children}</>
-  ) : (
-    <Navigate to="/login" />
-  )
+  return userData && userData.token ? <>{children}</> : <Navigate to="/login" />
 }
 
 export default ProtectedRoute

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { trpc } from "@/trpc"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -32,20 +32,26 @@ const formSchema = z
   })
 
 const LoginPage = () => {
-  const { setIsAuthed, setUserData } = useAuth()
+  const { userData, setUserData } = useAuth()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (userData && userData.token) {
+      navigate("/")
+    }
+  }, [navigate, userData])
 
   const { mutate } = trpc.user.login.useMutation({
     onSuccess: (result) => {
       localStorage.setItem("userInfo", JSON.stringify(result.data))
-      setIsAuthed(true)
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { token, ...userData } = result.data
+      const userData = result.data
       setUserData({
         id: userData.id,
         email: userData.email,
         username: userData.username,
         role: userData.role,
+        token: userData.token,
       })
       navigate("/")
     },
