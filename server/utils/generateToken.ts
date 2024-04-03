@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken'
+import { TUser } from '../types'
 
-export default function generateToken(id: string) {
-    return jwt.sign({ id }, 'secret1234', { expiresIn: '10d' })
+
+export default function generateToken(user: TUser) {
+    return jwt.sign(user, 'secret1234', { expiresIn: '10d' })
 }

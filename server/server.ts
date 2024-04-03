@@ -20,6 +20,3 @@ app.listen(5000);
 
 export type AppRouter = typeof appRouter;
 
-function password() {
-    throw new Error('Function not implemented.');
-}

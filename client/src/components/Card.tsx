@@ -2,30 +2,48 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@/components/ui/hover-card"
-import { Star } from "lucide-react"
-import { Movie } from "types"
+} from "@/components/ui/hover-card";
+import { Star, X } from "lucide-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Movie } from "types";
 
 type CardContent = {
-  isHidden: boolean
-  movie: Movie
-}
-const Card = ({ movie, isHidden = false }: CardContent) => {
+  isHidden: boolean;
+  showDelete?: boolean;
+  onDelete?: (value: string) => void;
+  movie: Movie;
+};
+const Card = ({
+  movie,
+  isHidden = false,
+  onDelete,
+  showDelete,
+}: CardContent) => {
   return (
-    <div className="w-full h-auto aspect-[4:3] hover:-translate-y-1 hover:duration-200 duration-75">
+    <div className="relative aspect-[4/3] h-auto w-full duration-75  hover:-translate-y-1 hover:duration-200">
+      {showDelete && onDelete && (
+        <button
+          className="absolute right-1 top-1 block rounded-full bg-white p-1"
+          onClick={() => onDelete(movie.id)}
+        >
+          <X color="black" size={16} />
+        </button>
+      )}
       <HoverCard closeDelay={0}>
         <HoverCardTrigger href={`/movie/${movie?.id}`}>
-          <img
-            src={movie.coverImageUrl}
+          <LazyLoadImage
+            src={movie?.coverImageUrl}
             alt="movie"
-            className="block w-full h-full object-cover"
+            width={200}
+            height={320}
+            className="object-cover"
           />
         </HoverCardTrigger>
         <HoverCardContent hidden={isHidden}>
           <div>
             <div className="mb-2">
-              <p className="text-xl line-clamp-2 font-bold">{movie?.title}</p>
-              <div className="flex items-center justify-between my-2">
+              <p className="line-clamp-2 text-xl font-bold">{movie?.title}</p>
+              <div className="my-2 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Star color="yellow" size={16} fill="yellow" />{" "}
                   <p>{movie?.rating}</p>
@@ -52,7 +70,7 @@ const Card = ({ movie, isHidden = false }: CardContent) => {
         </HoverCardContent>
       </HoverCard>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

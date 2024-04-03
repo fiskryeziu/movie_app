@@ -5,4 +5,9 @@ export interface AuthenticatedRequest extends Express.Request {
     };
 }
 
+export type TUser = {
+    id: string,
+    role: 'USER' | 'ADMIN'
+}
+
 

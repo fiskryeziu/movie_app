@@ -2,6 +2,7 @@ import React from "react"
 import img from "../assets/movie.jpg"
 import { Star } from "lucide-react"
 import { Link } from "react-router-dom"
+import { LazyLoadImage } from "react-lazy-load-image-component"
 
 const TabContent = () => {
   return (
@@ -13,7 +14,7 @@ const TabContent = () => {
           className="flex gap-4 bg-secondary border-b-2 dark:border-none mb-1 ml-1"
         >
           <div className="w-20 h-full">
-            <img src={img} alt="" className="object-cover w-full h-full" />
+            <LazyLoadImage src={img} />
           </div>
           <div className="flex flex-col justify-around">
             <p className="font-bold">

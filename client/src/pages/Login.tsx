@@ -1,64 +1,57 @@
-import React, { useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { trpc } from "@/trpc"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { Button } from "@/components/ui/button"
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { trpc } from "@/trpc";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { useAuth } from "@/hooks/useAuth"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks/useAuth";
 
-const formSchema = z
-  .object({
-    email: z
-      .string()
-      .min(1, { message: "This field has to be filled." })
-      .email("This is not a valid email."),
-    password: z.string().min(4),
-    confirmPassword: z.string().min(4),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  })
+const formSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "This field has to be filled." })
+    .email("This is not a valid email."),
+  password: z.string().min(4),
+});
 
 const LoginPage = () => {
-  const { userData, setUserData } = useAuth()
-  const navigate = useNavigate()
+  const { userData, setUserData } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userData && userData.token) {
-      navigate("/")
+      navigate("/");
     }
-  }, [navigate, userData])
+  }, [navigate, userData]);
 
   const { mutate } = trpc.user.login.useMutation({
     onSuccess: (result) => {
-      localStorage.setItem("userInfo", JSON.stringify(result.data))
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const userData = result.data
+      localStorage.setItem("userInfo", JSON.stringify(result.data));
+      const userData = result.data;
       setUserData({
         id: userData.id,
         email: userData.email,
         username: userData.username,
         role: userData.role,
+        createdAt: new Date(userData.createdAt),
         token: userData.token,
-      })
-      navigate("/")
+      });
+      navigate("/");
     },
     onError: (error) => {
-      console.log(error.message)
+      console.log(error.message);
     },
-  })
+  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -66,22 +59,22 @@ const LoginPage = () => {
       email: "",
       password: "",
     },
-  })
+  });
 
   const handleLogin = (values: z.infer<typeof formSchema>) => {
     mutate({
       email: values.email,
       password: values.password,
-    })
-  }
+    });
+  };
 
   return (
-    <div className="flex  flex-col justify-center items-center my-10">
-      <p className="text-3xl text-primary font-bold tracking-wide">Login</p>
+    <div className="my-10  flex flex-col items-center justify-center">
+      <p className="text-3xl font-bold tracking-wide text-primary">Login</p>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleLogin)}
-          className="space-y-8 max-w-xs w-full"
+          className="w-full max-w-xs space-y-8"
         >
           <FormField
             control={form.control}
@@ -113,37 +106,11 @@ const LoginPage = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Enter password"
-                    {...field}
-                    type="password"
-                  />
-                </FormControl>
-                <FormMessage />
-                <FormDescription>
-                  Don't have an account?
-                  <Link
-                    to={"/register"}
-                    className="pl-2 underline text-primary dark:text-white"
-                  >
-                    Sign up
-                  </Link>
-                </FormDescription>
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Login</Button>
         </form>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

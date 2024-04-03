@@ -1,27 +1,30 @@
 import MovieComment from "@/components/MovieComment"
 import MovieOverview from "@/components/MovieOverview"
 import MoviePlay from "@/components/MoviePlay"
+import MovieSkeleton from "@/components/MovieSkeleton"
 import { trpc } from "@/trpc"
 import { useParams } from "react-router-dom"
 
 const Movie = () => {
-  const { id } = useParams()
+  const { id } = useParams() as { id: string }
 
-  if (id) {
-    const { data, isLoading } = trpc.movie.getMovieById.useQuery({
-      id,
-    })
+  const { data, isLoading, isFetching } = trpc.movie.getMovieById.useQuery({
+    id,
+  })
 
-    if (data)
-      return (
-        <div className="w-full flex flex-col gap-5">
+  return (
+    <div className="w-full flex flex-col gap-5">
+      {(isLoading || isFetching) && <MovieSkeleton />}
+
+      {data && (
+        <>
           <MovieOverview movie={data} />
           <MoviePlay movie={data} isLoading={isLoading} />
           <MovieComment movie={data} />
-        </div>
-      )
-  }
-  return <>no id provided</>
+        </>
+      )}
+    </div>
+  )
 }
 
 export default Movie

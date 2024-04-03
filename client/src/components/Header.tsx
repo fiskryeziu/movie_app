@@ -25,9 +25,9 @@ const Header = () => {
       </div>
       <div className="flex space-x-3 items-center">
         {theme === "dark" ? (
-          <Moon onClick={() => setTheme("light")} />
+          <Moon onClick={() => setTheme("light")} className="cursor-pointer" />
         ) : (
-          <Sun onClick={() => setTheme("dark")} />
+          <Sun onClick={() => setTheme("dark")} className="cursor-pointer" />
         )}
         <ProfileMenu />
       </div>

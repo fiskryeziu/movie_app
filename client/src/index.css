@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+body {
+  min-height: 100vh;
+  position: relative;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,

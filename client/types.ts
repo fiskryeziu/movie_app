@@ -1,3 +1,5 @@
+import { JwtPayload } from "jwt-decode"
+
 export type DecodeProps = {
     userId: string,
     iat: number,
@@ -8,7 +10,8 @@ export type UserProps = {
     id: string,
     username: string,
     email: string,
-    role: 'ADMIN' | 'USER',
+    role: 'ADMIN' | 'USER' | 'NONE',
+    createdAt: Date
     token: string
 }
 
@@ -27,7 +30,7 @@ export type Movie = {
     trailerUrl: string;
     duration: number;
     viewCount: number;
-    review?: string[]
+    reviews?: Review[]
 };
 
 export type Review = {
@@ -35,8 +38,35 @@ export type Review = {
     userId: string;
     name: string;
     comment: string;
-    timestamp: Date;
-    movie: Movie;
+    timestamp: string;
     movieId: string;
 };
+export interface CustomJwtPayload extends JwtPayload {
+    id: string;
+    role: string;
+}
 
+
+export type TAdminMovie = {
+    id: string;
+    title: string;
+    releaseDate: string;
+}
+export type TAdminUserList = {
+    id: string;
+    username: string;
+    email: string;
+    role: 'ADMIN' | 'USER'
+}
+
+export type TKey = | "title"
+    | "description"
+    | "quality"
+    | "genre"
+    | "rating"
+    | "releaseDate"
+    | "actors"
+    | "coverImageUrl"
+    | "movieURL"
+    | "trailerUrl"
+    | "duration";

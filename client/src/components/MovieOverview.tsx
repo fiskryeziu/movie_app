@@ -1,48 +1,48 @@
-import { ChevronRight, Clock, Film, Globe, Star } from "lucide-react"
-import { Movie } from "types"
+import { ChevronRight, Clock, Film, Globe, Star } from "lucide-react";
+import { Movie } from "types";
 
 type TMovie = {
-  movie: Movie
-}
+  movie: Movie;
+};
 const MovieOverview = ({ movie }: TMovie) => {
   return (
-    <div className="w-full flex my-10 flex-col lg:flex-row justify-between items-center gap-10">
-      <div className="w-full lg:w-1/4 lg:h-auto h-80">
+    <div className="my-10 flex w-full flex-col items-center justify-between gap-10 lg:flex-row">
+      <div className="h-80 w-full lg:h-auto lg:w-1/4">
         <img
           src={movie.coverImageUrl}
           alt=""
-          className="object-cover h-full lg:h-auto mx-auto"
+          className="mx-auto h-full object-cover lg:h-auto"
         />
       </div>
-      <div className="flex flex-col  w-full lg:w-3/4 items-center lg:items-start">
+      <div className="flex w-full  flex-col items-center lg:w-3/4 lg:items-start">
         <p className="text-xl uppercase text-primary">Overview</p>
-        <p className="text-2xl uppercase max-w-lg mb-10 text-center lg:text-left">
+        <p className="mb-10 max-w-lg text-center text-2xl uppercase lg:text-left">
           {movie.title}
         </p>
-        <p className="max-w-xl mb-10 lg:text-left text-center">
+        <p className="mb-10 max-w-xl text-center lg:text-left">
           {movie.description}
         </p>
-        <div className="w-auto lg:w-full flex flex-col gap-5  lg:flex-row ">
-          <div className="w-auto lg:w-1/2 flex-col space-y-5">
+        <div className="flex w-auto flex-col gap-5 lg:w-full  lg:flex-row ">
+          <div className="w-auto flex-col space-y-5 lg:w-1/2">
             <div className="flex gap-2">
               <Film className="text-primary" />
               <span className="flex font-bold"> Genre: </span>
               {movie.genre.map((item) => (
-                <p>{item}</p>
+                <p key={item}>{item}</p>
               ))}
             </div>
             <div className="flex gap-2">
               <Star className="text-primary" />
               <span className="flex font-bold"> Rating: </span>
-              <p>7.3/10 </p>
+              <p>{movie.rating} </p>
             </div>
             <div className="flex gap-2">
               <Globe className="text-primary" />
               <span className="flex font-bold"> Year: </span>
-              <p>2022 </p>
+              <p>{new Date(movie.releaseDate).toLocaleDateString()}</p>
             </div>
           </div>
-          <div className="w-auto lg:w-1/2 flex-col space-y-5">
+          <div className="w-auto flex-col space-y-5 lg:w-1/2">
             <div className="flex gap-2">
               <Clock className="text-primary" />
               <span className="flex font-bold"> Duration: </span>
@@ -59,7 +59,7 @@ const MovieOverview = ({ movie }: TMovie) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MovieOverview
+export default MovieOverview;

@@ -18,21 +18,25 @@ const ProfileMenu = () => {
     <Menubar className="border-0 m-0 p-0">
       <MenubarMenu>
         <MenubarTrigger>
-          <User2 />
+          <User2 className="cursor-pointer" />
         </MenubarTrigger>
         <MenubarContent>
           {userData?.token ? (
             <>
-              <MenubarItem asChild>
+              <MenubarItem asChild className="cursor-pointer">
                 <Link to={"/profile"} className="w-full h-full bg-transparent">
                   Profile
                 </Link>
               </MenubarItem>
               <MenubarSeparator />
-              <MenubarItem onClick={logoutHandler}>Logout</MenubarItem>
+              <MenubarItem onClick={logoutHandler} className="cursor-pointer">
+                Logout
+              </MenubarItem>
             </>
           ) : (
-            <MenubarItem onClick={loginHandler}>Login</MenubarItem>
+            <MenubarItem onClick={loginHandler} className="cursor-pointer">
+              Login
+            </MenubarItem>
           )}
         </MenubarContent>
       </MenubarMenu>

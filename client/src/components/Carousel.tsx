@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/css"
 import { Autoplay } from "swiper/modules"
 import { Movie } from "types"
+import { LazyLoadImage } from "react-lazy-load-image-component"
 
 const Carousel = ({ movies }: { movies: Movie[] }) => {
   return (
@@ -39,11 +40,13 @@ const Carousel = ({ movies }: { movies: Movie[] }) => {
     >
       {movies?.map((movie) => (
         <SwiperSlide key={movie.id} className="text-4xl text-red-500">
-          <div className="w-full h-auto aspect-[4:3]">
-            <img
+          <div className="block w-full h-auto aspect-[4:3]">
+            <LazyLoadImage
               src={movie?.coverImageUrl}
               alt=""
-              className="block w-full h-full object-cover"
+              width={200}
+              height={320}
+              className="object-cover"
             />
           </div>
         </SwiperSlide>

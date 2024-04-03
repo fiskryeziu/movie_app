@@ -37,8 +37,8 @@ export function Sidebar() {
             </Link>
           </SheetClose>
         </div>
-        <div className="h-3/4 flex justify-center items-end w-full ">
-          <div className="grid grid-cols-4 gap-2">
+        <div className="h-3/4 flex justify-center items-end ">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             <SheetClose asChild>
               <Link to={"/genre/action"} className="text-blue-500">
                 action
