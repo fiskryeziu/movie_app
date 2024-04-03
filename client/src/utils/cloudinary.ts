@@ -1,9 +1,9 @@
 import cloudinary from 'cloudinary'
 
 cloudinary.v2.config({
-    cloud_name: 'dkujpxuwa',
-    api_key: '763511446693441',
-    api_secret: 'vCoQvyVDpAHO8dDLpbF3XF4Nbxc'
+    cloud_name: import.meta.env.VITE_CLOUD_NAME,
+    api_key: import.meta.env.VITE_CLOUD_KEY,
+    api_secret: import.meta.env.VITE_CLOUD_KEY_SECRET
 })
 
 export async function handleDelete(url: string) {
