@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { trpc } from "@/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -103,6 +104,15 @@ const LoginPage = () => {
                   />
                 </FormControl>
                 <FormMessage />
+                <FormDescription>
+                  Don't have an account?
+                  <Link
+                    to={"/register"}
+                    className="pl-2 text-primary underline dark:text-white"
+                  >
+                    Register
+                  </Link>
+                </FormDescription>
               </FormItem>
             )}
           />
